@@ -16,12 +16,27 @@ class Quiz {
 
     // Display the current question
     public displayQuestion(): void {
-        
+        const currentQ = this.questions[this.questionIndex];
+        const questionElement = document.getElementById('question'); // get the question element
+        const optionContainer = document.getElementById('options'); // get the options container element
+
+        if (questionElement && optionContainer) {
+            questionElement.innerText = currentQ.question; // set the question text
+            optionContainer.innerHTML = ''; // clear the options container
+            currentQ.options.forEach((option: string) => { // for each option, create a button
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.addEventListener('click', () => this.selectedOption = option); // when button clicked, mark it the selected option
+                optionContainer.appendChild(button); // add all buttons we have created to the options container
+            });
+        }
     }
 
     // Select an option
     private selectOption(option: string): void {
-        
+        this.selectedOption = option;
+        const options = document.querySelectorAll('#options button');
+        options.forEach(opt: Element) as )
     }
 
     // Submit the selected answer
@@ -48,5 +63,5 @@ const questions: IQuestion[] = [
 // Create a new Quiz instance and set up event listeners
 const quiz = new Quiz(questions);
 document.addEventListener('DOMContentLoaded', () => {
-    
+    quiz.displayQuestion();
 });
